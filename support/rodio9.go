@@ -68,24 +68,14 @@ func solve(f, t int, g []int, tr Tree) int {
 	//fmt.Printf("solve: %d,%d,%v\n", f, t, g)
 
 	//start := time.Now()
-	mi := tr.query(f, t, 0, len(g), 0, g)
+	mi := tr.query(f, t+1, 0, len(g), 0, g)
 	//fmt.Printf("Time for query, %v\n", time.Since(start))
 	//fmt.Printf("mi: %d\n", mi)
 	//time.Sleep(1 * time.Second)
-	if mi == f || mi == t {
-		diff := g[t] - g[f]
-		if diff < 0 {
-			diff = -diff
-		}
-		//fmt.Printf("diff: %d\n", diff)
 
-		matched := t - f - diff
-		//fmt.Printf("matched: %d\n", matched)
-
-		return matched
-	}
-
-	return solve(f, mi, g, tr) + solve(mi, t, g, tr)
+	h1 := g[f] - g[mi]
+	h2 := g[t] - g[mi]
+	return t - f - h1 - h2
 
 }
 
