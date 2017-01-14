@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"flag"
 	"fmt"
@@ -52,17 +51,16 @@ func main() {
 	//fmt.Println(t.m)
 	// fmt.Println(t.query(2, 4, 0, len(g), 0, g))
 
-	var res string = ""
+	var buf bytes.Buffer
 
 	//start = time.Now()
 	for _, qe := range q {
 		r := solve(qe[0], qe[1], g, t)
-		res = fmt.Sprintf("%s\n%d", res, r)
+		fmt.Fprintf(&buf, "%d\n", r)
 	}
 
-	f := bufio.NewWriter(os.Stdout)
-	defer f.Flush()
-	f.Write([]byte(res))
+	buf.WriteTo(os.Stdout)
+
 	//fmt.Fprintln(f, res)
 }
 
